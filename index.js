@@ -1,4 +1,6 @@
-var finances = [
+
+
+let finances = [
   ['Jan-2010', 867884],
   ['Feb-2010', 984655],
   ['Mar-2010', 322013],
@@ -86,3 +88,33 @@ var finances = [
   ['Jan-2017', 138230],
   ['Feb-2017', 671099],
 ];
+
+//title console.log 
+console.log("Financial Analysis \n ----------------")
+
+//Total months
+console.log("Total Months:", finances.length);
+
+//Total
+let total = finances.reduce((sum, [, value]) => sum + value, 0);
+console.log("Total: $", total);
+
+//Calculate changes and average change
+let changes = finances.slice(1).map(([month, value], i) => {
+  let prevValue = finances[i][1];
+  return value - prevValue;
+});
+
+let avChange = changes.reduce((sum, change) => sum + change, 0) / changes.length;
+console.log("Average Change:", avChange.toFixed(2));
+
+
+//Greatest increase in profits
+let maxIn = Math.max(...changes);
+let inMonth = finances[changes.indexOf(maxIn) + 1][0];
+console.log("Greatest Increase in P/L:", inMonth, "($", maxIn, ")");
+
+//Greatest decrease in profits
+let maxDe = Math.min(...changes);
+let deMonth = finances[changes.indexOf(maxDe) + 1][0];
+console.log("Greatest Decrease in P/L:", deMonth, "($", maxDe, ")");
